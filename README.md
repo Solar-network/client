@@ -1,41 +1,39 @@
-# ARK - TypeScript Client
+# Solar API client
 
 <p align="center">
-    <img src="./banner.png" />
+    <img src="https://github.com/Solar-network/client/raw/main/banner.png" />
 </p>
-
-> Lead Maintainer: [Brian Faust](https://github.com/faustbrian)
 
 ## Installation
 
 ```bash
-yarn add @arkecosystem/client
+pnpm install @solar-network/client
 ```
 
 ## Usage
 
 ```ts
-import { Connection } from "@arkecosystem/client";
+import { Connection } from "@solar-network/client";
 
 const init = async () => {
-	const connection: Connection = new Connection("https://dwallets.ark.io/api");
+    const connection: Connection = new Connection("https://tapi.solar.org/api");
 
-	console.log(await connection.api("blocks").all())
+    console.log(await connection.api("blocks").all());
 };
 
 init();
 ```
 
-See [tests](https://github.com/ArkEcosystem/javascript-client/tree/master/__tests__/resources) for more examples.
+See the [documentation](https://docs.solar.org/sdk/typescript/client/intro/) for more examples.
 
 ## Security
 
-If you discover a security vulnerability within this package, please send an e-mail to security@ark.io. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this package, please send an e-mail to security@solar.org. All security vulnerabilities will be promptly addressed.
 
 ## Credits
 
-This project exists thanks to all the people who [contribute](../../contributors).
+This project exists thanks to all the people who [contribute](https://github.com/Solar-network/client/graphs/contributors).
 
 ## License
 
-[MIT](LICENSE) © [ARK Ecosystem](https://ark.io)
+Please read the separate [LICENSE](https://github.com/Solar-network/client/blob/main/LICENSE) file for details.

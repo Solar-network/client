@@ -1,26 +1,28 @@
-import { Blocks } from "./blocks";
-import { Delegates } from "./delegates";
-import { Locks } from "./locks";
-import { Node } from "./node";
-import { Peers } from "./peers";
-import { Rounds } from "./rounds";
-import { Transactions } from "./transactions";
-import { Votes } from "./votes";
-import { Wallets } from "./wallets";
+import { Blockchain } from "./blockchain.js";
+import { Blocks } from "./blocks.js";
+import { Delegates } from "./delegates.js";
+import { Locks } from "./locks.js";
+import { Node } from "./node.js";
+import { Peers } from "./peers.js";
+import { Rounds } from "./rounds.js";
+import { Transactions } from "./transactions.js";
+import { Votes } from "./votes.js";
+import { Wallets } from "./wallets.js";
 
-export * from "./resource";
+export * from "./resource.js";
 
 // tslint:disable-next-line: variable-name
 export const Resources = {
-	blocks: Blocks,
-	delegates: Delegates,
-	locks: Locks,
-	node: Node,
-	peers: Peers,
-	rounds: Rounds,
-	transactions: Transactions,
-	votes: Votes,
-	wallets: Wallets,
+    blockchain: Blockchain,
+    blocks: Blocks,
+    delegates: Delegates,
+    locks: Locks,
+    node: Node,
+    peers: Peers,
+    rounds: Rounds,
+    transactions: Transactions,
+    votes: Votes,
+    wallets: Wallets,
 };
 
 export type AvailableResourcesName = keyof typeof Resources;

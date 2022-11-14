@@ -1,24 +1,24 @@
-import { ApiQuery } from "../interfaces";
+import { ApiQuery } from "../interfaces.js";
 
 export interface Peer {
-	ip: string;
-	port: number;
-	version: string;
-	height: number;
-	status: number;
-	os: string;
-	latency: number;
+    ip: string;
+    port: number;
+    ports: {
+        [service: string]: number;
+    };
+    version: string;
+    height: number;
+    latency: number;
+    plugins: {
+        [plugin: string]: {
+            port: number;
+            enabled?: boolean;
+        };
+    };
 }
 
 export interface AllPeersApiQuery extends ApiQuery {
-	/** The port by which the resources will be filtered. */
-	port?: number;
-	/** The status by which the resources will be filtered. */
-	status?: string;
-	/** The operating system by which the resources will be filtered. */
-	os?: string;
-	/** The node version by which the resources will be filtered. */
-	version?: string;
-	/** The column by which the resources will be sorted. */
-	orderBy?: string;
+    ip?: string;
+    version?: string;
+    orderBy?: string;
 }

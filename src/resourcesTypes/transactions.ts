@@ -1,118 +1,115 @@
-import { ApiQuery } from "../interfaces";
+import { ApiQuery, ApiQueryRange } from "../interfaces.js";
 
 export interface Transaction {
-	id: string;
-	blockId: string;
-	version: number;
-	type: number;
-	typeGroup: number;
-	amount: string;
-	fee: string;
-	sender: string;
-	senderPublicKey: string;
-	recipient: string;
-	asset?: TransactionAssets;
-	signature: string;
-	signSignature?: string;
-	vendorField?: string;
-	confirmations: number;
-	timestamp: {
-		epoch: number;
-		unix: number;
-		human: string;
-	};
-	nonce: string;
+    id: string;
+    blockHeight: number;
+    blockId: string;
+    version: number;
+    type: number;
+    typeGroup: number;
+    amount: string;
+    fee: string;
+    burnedFee?: string;
+    sender: string;
+    senderPublicKey: string;
+    recipient?: string;
+    signature: string;
+    signSignature?: string;
+    signatures?: string[];
+    memo?: string;
+    asset?: TransactionAssets;
+    confirmations: number;
+    nonce: string;
+    timestamp?: {
+        epoch: number;
+        unix: number;
+        human: string;
+    };
 }
 
 export type TransactionAssets = {
-	ipfs?: string;
-	votes?: string[];
-	delegate?: {
-		username: string;
-	};
-	signature?: {
-		publicKey: string;
-	};
-	multiSignature?: {
-		publicKeys: string[];
-		min: string;
-	};
-	lock?: {
-		secretHash: string;
-		expiration: {
-			type: number;
-			value: number;
-		};
-	};
-	claim?: {
-		lockTransactionId: string;
-		unlockSecret: string;
-	};
-	refund?: {
-		lockTransactionId: string;
-	};
+    ipfs?: string;
+    votes?: string[] | { [delegate: string]: number };
+    delegate?: {
+        username: string;
+    };
+    lock?: {
+        secretHash: string;
+        expiration: {
+            type: number;
+            value: number;
+        };
+    };
+    claim?: {
+        lockTransactionId: string;
+        unlockSecret: string;
+    };
+    refund?: {
+        lockTransactionId: string;
+    };
+    transfers?: [
+        {
+            amount: string;
+            recipientId: string;
+        },
+    ];
 } & Record<string, any>;
 
 export interface CreateTransactionApiResponse {
-	accept: string[];
-	broadcast: string[];
-	excess: string[];
-	invalid: string[];
+    accept: string[];
+    broadcast: string[];
+    excess: string[];
+    invalid: string[];
 }
 
 export interface TransactionTypes extends Record<number, Record<string, number>> {
-	1: {
-		Transfer: number;
-		SecondSignature: number;
-		DelegateRegistration: number;
-		Vote: number;
-		MultiSignature: number;
-		Ipfs: number;
-		MultiPayment: number;
-		DelegateResignation: number;
-		HtlcLock: number;
-		HtlcClaim: number;
-		HtlcRefund: number;
-	};
-	2: {
-		BusinessRegistration: number;
-		BusinessResignation: number;
-		BusinessUpdate: number;
-		BridgechainRegistration: number;
-		BridgechainResignation: number;
-		BridgechainUpdate: number;
-	};
+    1: {
+        LegacyTransfer: number;
+        SecondSignature: number;
+        DelegateRegistration: number;
+        Ipfs: number;
+        Transfer: number;
+        DelegateResignation: number;
+    };
+    2: {
+        Burn: number;
+        Vote: number;
+    };
 }
 
 export interface TransactionFees extends Record<number, Record<string, string>> {
-	1: {
-		transfer: string;
-		secondSignature: string;
-		delegateRegistration: string;
-		vote: string;
-		multiSignature: string;
-		ipfs: string;
-		multiPayment: string;
-		delegateResignation: string;
-		htlcLock: string;
-		htlcClaim: string;
-		htlcRefund: string;
-	};
-	2: {
-		businessRegistration: string;
-		businessResignation: string;
-		businessUpdate: string;
-		bridgechainRegistration: string;
-		bridgechainResignation: string;
-		bridgechainUpdate: string;
-	};
+    1: {
+        LegacyTransfer: string;
+        SecondSignature: string;
+        DelegateRegistration: string;
+        Ipfs: string;
+        Transfer: string;
+        DelegateResignation: string;
+    };
+    2: {
+        Burn: string;
+        Vote: string;
+    };
 }
 
 export interface AllTransactionsApiQuery extends ApiQuery {
-	/** The transaction type to be retrieved. */
-	type?: number;
-	/** The block id to be retrieved. */
-	blockId?: number;
-	/** The transaction id to be retrieved. */
-	id?: number;
+    address?: string;
+    senderId?: string;
+    recipientId?: string;
+    id?: string;
+    version?: number;
+    blockHeight?: number | ApiQueryRange;
+    blockId?: string;
+    sequence?: number | ApiQueryRange;
+    timestamp?: number | ApiQueryRange;
+    nonce?: number | ApiQueryRange;
+    senderPublicKey?: string;
+    type?: number;
+    typeGroup?: number;
+    memo?: string;
+    amount?: number | ApiQueryRange;
+    fee?: number | ApiQueryRange;
+    burnedFee?: number | ApiQueryRange;
+    asset?: object;
+    orderBy?: string;
 }
